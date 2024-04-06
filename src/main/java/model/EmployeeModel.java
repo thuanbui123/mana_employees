@@ -30,6 +30,13 @@ public class EmployeeModel extends AbstractModel {
         this.location = location;
         this.role = role;
     }
+
+    public EmployeeModel(String name, DepartmentModel department, LocationModel location, RoleModel role) {
+        this.name = name;
+        this.department = department;
+        this.location = location;
+        this.role = role;
+    }
     
     public String getName() {
         return name;

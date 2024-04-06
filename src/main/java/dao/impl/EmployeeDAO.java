@@ -30,13 +30,20 @@ public class EmployeeDAO extends AbstractDAO<EmployeeModel> implements IEmployee
 
     @Override
     public void updateEmployee(EmployeeModel employeeModel, int id) {
-        String sql = "UPDATE employee SET name = ?, username = ?, departmentId = ?, locationId = ?, roleId = ? WHERE id = ?";
-        update(sql, employeeModel.getName(), employeeModel.getUsername(), employeeModel.getPassword(), employeeModel.getDepartment().getId(), employeeModel.getLocation().getId(), employeeModel.getRole().getId(), id);
+        String sql = "UPDATE employee SET name = ?, departmentId = ?, locationId = ?, roleId = ? WHERE id = ?";
+        update(sql, employeeModel.getName(), employeeModel.getDepartment().getId(), employeeModel.getLocation().getId(), employeeModel.getRole().getId(), id);
     }
 
     @Override
     public void deleteEmployee(int id) {
         String sql = "DELETE FROM employee WHERE id = ?";
         update(sql, id);
+    }
+
+    @Override
+    public boolean isEmployeeOnProject(int id) {
+        String sql = "SELECT * FROM employee, department, location, role, employeesonproject WHERE employee.id = employeesonproject.idEmployee and employee.departmentId = department.id AND employee.locationId = location.id AND employee.roleId = role.id and employee.id = ?";
+        if (query(sql, new EmployeeMapper(), id) != null && !query(sql, new EmployeeMapper(), id).isEmpty()) return true;
+        return false;
     }
 }

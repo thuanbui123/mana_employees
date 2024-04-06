@@ -50,7 +50,7 @@ public class AdminEmployeeController implements ActionListener {
                 boolean isInsert = employeeService.insertData(employeeModel);
                 if (isInsert) {
                     JOptionPane.showMessageDialog(null, "Thêm nhân viên thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                    String sql = "Select employee.id, employee.name, employee.username, location.name, department.name from employee, location, department where employee.departmentId = department.id and employee.locationID = location.id";
+                    String sql = "Select employee.id, employee.name, employee.username, location.name, department.name, role.name from employee, location, role, department where employee.roleId = role.id and employee.departmentId = department.id and employee.locationID = location.id ORDER BY employee.id ASC";
                     UpdateTable.updateTableData(this.PnlAdminEmployeeManage.tblData, sql);
 
                 } else {
@@ -60,13 +60,40 @@ public class AdminEmployeeController implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Mật khẩu không khớp", "Thông báo", JOptionPane.ERROR_MESSAGE);
             }
         } else if (action.equals("Lưu")) {
-            JOptionPane.showMessageDialog(null, "Save");
+            Integer id = Integer.valueOf(this.PnlAdminEmployeeManage.tfEditEmployeeID.getText());
+            String fullName = this.PnlAdminEmployeeManage.tfEditFullname.getText();
+            String location = (String) this.PnlAdminEmployeeManage.cboLocation.getSelectedItem();
+            LocationModel locationModel = new LocationDAO().findOneLocationModelByName(location);
+            String department = this.PnlAdminEmployeeManage.cboDepartmentName.getSelectedItem().toString();
+            DepartmentModel departmentModel = new DepartmentDAO().findOneDepartmentByName(department);
+            String role = this.PnlAdminEmployeeManage.cboRole.getSelectedItem().toString();
+            RoleModel roleModel = new RoleDAO().findOneRoleModelByName(role);
+            EmployeeModel employeeModel = new EmployeeModel(fullName, departmentModel, locationModel, roleModel);
+            EmployeeModel saveEmployeeModel = employeeService.updateEmployee(employeeModel, id);
+            if (saveEmployeeModel != null) {
+                JOptionPane.showMessageDialog(null, "Sửa thành công");
+                String sql = "Select employee.id, employee.name, employee.username, location.name, department.name, role.name from employee, location, role, department where employee.roleId = role.id and employee.departmentId = department.id and employee.locationID = location.id ORDER BY employee.id ASC";
+                UpdateTable.updateTableData(this.PnlAdminEmployeeManage.tblData, sql);
+            } else {
+                JOptionPane.showMessageDialog(null, "Sửa thất bại!");
+            }
         } else if (action.equals("Tìm kiếm")) {
             String name = this.PnlAdminEmployeeManage.tfSearchFullname.getText();
-            String sql = "Select employee.id, employee.name, employee.username, location.name, department.name from employee, location, department where employee.departmentId = department.id and employee.locationID = location.id and employee.name = N'" + name + "'";
+            String sql = "Select employee.id, employee.name, employee.username, location.name, department.name, role.name from employee, location, role, department where employee.roleId = role.id and employee.departmentId = department.id and employee.locationID = location.id and employee.name = N'" + name + "'";
             UpdateTable.updateTableData(this.PnlAdminEmployeeManage.tblData, sql);
         } else if (action.equals("Xóa")) {
-            JOptionPane.showMessageDialog(null, "Delete");
+            Integer id = Integer.valueOf(this.PnlAdminEmployeeManage.tfEditEmployeeID.getText());
+            int Selection = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa nhân viên có mã " + id, "Xác nhận xóa", JOptionPane.OK_CANCEL_OPTION);
+            if (Selection == JOptionPane.OK_OPTION) {
+                if (employeeService.isEmployeeOnProject(id)) {
+                    JOptionPane.showMessageDialog(null, "Nhân viên vẫn đang tham gia dự án");
+                } else {
+                    employeeService.deleteEmployee(id);
+                    JOptionPane.showMessageDialog(null, "Xóa thành công");
+                    String sql = "Select employee.id, employee.name, employee.username, location.name, department.name, role.name from employee, location, role, department where employee.roleId = role.id and employee.departmentId = department.id and employee.locationID = location.id ORDER BY employee.id ASC";
+                    UpdateTable.updateTableData(this.PnlAdminEmployeeManage.tblData, sql);
+                }
+            }
         }
     }
 

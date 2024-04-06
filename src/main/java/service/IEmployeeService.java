@@ -13,5 +13,7 @@ public interface IEmployeeService {
 
     EmployeeModel updateEmployee(EmployeeModel employeeModel, int id);
 
+    boolean isEmployeeOnProject (int id);
+    
     void deleteEmployee(int id);
 }

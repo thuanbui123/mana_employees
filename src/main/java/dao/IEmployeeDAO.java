@@ -11,6 +11,8 @@ public interface IEmployeeDAO {
     
     EmployeeModel insertEmployee(EmployeeModel employeeModel);
 
+    boolean isEmployeeOnProject (int id);
+    
     void updateEmployee(EmployeeModel employeeModel, int id);
 
     void deleteEmployee(int id);

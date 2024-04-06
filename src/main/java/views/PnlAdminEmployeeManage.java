@@ -41,7 +41,7 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
     public PnlAdminEmployeeManage() {
         initComponents();
         ActionListener action = new AdminEmployeeController(this);
-        String sql = "Select employee.id, employee.name, employee.username, location.name, department.name from employee, location, department where employee.departmentId = department.id and employee.locationID = location.id";
+        String sql = "Select employee.id, employee.name, employee.username, location.name, department.name, role.name from employee, location, role, department where employee.roleId = role.id and employee.departmentId = department.id and employee.locationID = location.id ORDER BY employee.id ASC";
         UpdateTable.updateTableData(tblData, sql);
         List<LocationModel> locations = new LocationService().findAllLocationModel();
         getData(0);
@@ -53,6 +53,7 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
                 if (cboLocation.getSelectedIndex() == 0) {
                     // Hiển thị thông báo nếu phần tử đầu tiên được chọn
                     JOptionPane.showMessageDialog(null, "Bạn không thể chọn phần tử này. Vui lòng chọn một lựa chọn khác.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    cboLocation.setSelectedIndex(1);
                 }
             }
         });
@@ -82,6 +83,7 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
                 if (cboAddLocation.getSelectedIndex() == 0) {
                     // Hiển thị thông báo nếu phần tử đầu tiên được chọn
                     JOptionPane.showMessageDialog(null, "Bạn không thể chọn phần tử này. Vui lòng chọn một lựa chọn khác.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    cboAddLocation.setSelectedIndex(1);
                 }
             }
         });
@@ -112,6 +114,7 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
                 if (cboDepartmentName.getSelectedIndex() == 0) {
                     // Hiển thị thông báo nếu phần tử đầu tiên được chọn
                     JOptionPane.showMessageDialog(null, "Bạn không thể chọn phần tử này. Vui lòng chọn một lựa chọn khác.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    cboDepartmentName.setSelectedIndex(1);
                 }
             }
         });
@@ -142,6 +145,7 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
                 if (cboAddDepartment.getSelectedIndex() == 0) {
                     // Hiển thị thông báo nếu phần tử đầu tiên được chọn
                     JOptionPane.showMessageDialog(null, "Bạn không thể chọn phần tử này. Vui lòng chọn một lựa chọn khác.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    cboAddDepartment.setSelectedIndex(1);
                 }
             }
         });
@@ -173,6 +177,7 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
                 if (cboAddRole.getSelectedIndex() == 0) {
                     // Hiển thị thông báo nếu phần tử đầu tiên được chọn
                     JOptionPane.showMessageDialog(null, "Bạn không thể chọn phần tử này. Vui lòng chọn một lựa chọn khác.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    cboAddRole.setSelectedIndex(1);
                 }
             }
         });
@@ -194,6 +199,36 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
             cboAddRole.addItem(roleModel.getName());
         }
         
+        cboRole.addItem("Chọn chức vụ");
+
+        cboRole.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (cboRole.getSelectedIndex() == 0) {
+                    // Hiển thị thông báo nếu phần tử đầu tiên được chọn
+                    JOptionPane.showMessageDialog(null, "Bạn không thể chọn phần tử này. Vui lòng chọn một lựa chọn khác.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                    cboRole.setSelectedIndex(1);
+                }
+            }
+        });
+
+        cboRole.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (index == 0) {
+                    setForeground(Color.GRAY); // Làm cho văn bản có màu xám để trông như là bị vô hiệu hóa
+                } else {
+                    setForeground(Color.BLACK); // Màu sắc bình thường cho các lựa chọn khác
+                }
+                return this;
+            }
+        });
+        
+        for (RoleModel roleModel : roles) {
+            cboRole.addItem(roleModel.getName());
+        }
+        
         btnAdd.addActionListener(action);
         btnDelete.addActionListener(action);
         btnSave.addActionListener(action);
@@ -207,7 +242,7 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
      */
     //   @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    public void initComponents() {
+    private void initComponents() {
 
         btnGroupAdmin = new javax.swing.ButtonGroup();
         tabbedPane = new javax.swing.JTabbedPane();
@@ -225,11 +260,13 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
         jLabel23 = new javax.swing.JLabel();
         cboLocation = new javax.swing.JComboBox();
         cboDepartmentName = new javax.swing.JComboBox();
+        jLabel13 = new javax.swing.JLabel();
+        cboRole = new javax.swing.JComboBox();
         pnlSearchCondition = new javax.swing.JPanel();
         btnSearch = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
         tfSearchFullname = new javax.swing.JTextField();
-        scrlpnlData = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
         tblData = new javax.swing.JTable();
         tabAddNew = new javax.swing.JPanel();
         pnlAddEmp = new javax.swing.JPanel();
@@ -291,6 +328,10 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
 
         cboDepartmentName.setMaximumSize(null);
 
+        jLabel13.setText("Chức vụ");
+
+        cboRole.setMaximumSize(null);
+
         javax.swing.GroupLayout pnlEditEmpLayout = new javax.swing.GroupLayout(pnlEditEmp);
         pnlEditEmp.setLayout(pnlEditEmpLayout);
         pnlEditEmpLayout.setHorizontalGroup(
@@ -301,22 +342,23 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
                     .addGroup(pnlEditEmpLayout.createSequentialGroup()
                         .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfEditUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfEditUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboRole, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlEditEmpLayout.createSequentialGroup()
                         .addGroup(pnlEditEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlEditEmpLayout.createSequentialGroup()
-                                .addGroup(pnlEditEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(pnlEditEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(tfEditEmployeeID, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfEditFullname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlEditEmpLayout.createSequentialGroup()
-                                .addGap(252, 252, 252)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlEditEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(tfEditEmployeeID, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfEditFullname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlEditEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlEditEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cboLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -325,7 +367,7 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
                 .addGroup(pnlEditEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         pnlEditEmpLayout.setVerticalGroup(
             pnlEditEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,9 +386,13 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
                     .addComponent(cboDepartmentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlEditEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfEditUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20))
+                .addGroup(pnlEditEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlEditEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel13)
+                        .addComponent(cboRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlEditEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfEditUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel20)))
                 .addGap(100, 100, 100))
         );
 
@@ -361,18 +407,41 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
 
         jLabel19.setText("Tên");
 
-        scrlpnlData.setPreferredSize(new java.awt.Dimension(300, 350));
-        scrlpnlData.setRequestFocusEnabled(false);
+        javax.swing.GroupLayout pnlSearchConditionLayout = new javax.swing.GroupLayout(pnlSearchCondition);
+        pnlSearchCondition.setLayout(pnlSearchConditionLayout);
+        pnlSearchConditionLayout.setHorizontalGroup(
+            pnlSearchConditionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSearchConditionLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfSearchFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(275, 275, 275)
+                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(100, Short.MAX_VALUE))
+        );
+        pnlSearchConditionLayout.setVerticalGroup(
+            pnlSearchConditionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSearchConditionLayout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(pnlSearchConditionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSearch)
+                    .addComponent(jLabel19)
+                    .addComponent(tfSearchFullname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(62, Short.MAX_VALUE))
+        );
+
+        tabViewEdit.add(pnlSearchCondition, java.awt.BorderLayout.NORTH);
 
         tblData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "id", "Họ tên", "Tên hiển thị", "Địa chỉ", "Phòng ban"
+                "id", "Họ tên", "Tên hiển thị", "Địa chỉ", "Phòng ban", "Chức vụ"
             }
         ));
         tblData.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -380,38 +449,9 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
                 tblDataMouseClicked(evt);
             }
         });
-        scrlpnlData.setViewportView(tblData);
+        jScrollPane1.setViewportView(tblData);
 
-        javax.swing.GroupLayout pnlSearchConditionLayout = new javax.swing.GroupLayout(pnlSearchCondition);
-        pnlSearchCondition.setLayout(pnlSearchConditionLayout);
-        pnlSearchConditionLayout.setHorizontalGroup(
-            pnlSearchConditionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSearchConditionLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfSearchFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(275, 275, 275)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(pnlSearchConditionLayout.createSequentialGroup()
-                .addComponent(scrlpnlData, javax.swing.GroupLayout.PREFERRED_SIZE, 791, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        pnlSearchConditionLayout.setVerticalGroup(
-            pnlSearchConditionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSearchConditionLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addGroup(pnlSearchConditionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSearch)
-                    .addComponent(jLabel19)
-                    .addComponent(tfSearchFullname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(scrlpnlData, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        tabViewEdit.add(pnlSearchCondition, java.awt.BorderLayout.NORTH);
+        tabViewEdit.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         tabbedPane.addTab("Nhân viên", new javax.swing.ImageIcon(getClass().getResource("/images/table.png")), tabViewEdit); // NOI18N
 
@@ -487,9 +527,9 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tfAddPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 360, Short.MAX_VALUE)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         pnlAddEmpLayout.setVerticalGroup(
             pnlAddEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -544,6 +584,8 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
         cboLocation.getModel().setSelectedItem(location);
         String department = (String) model.getValueAt(row, 4);
         cboDepartmentName.getModel().setSelectedItem(department);
+        String role = (String) model.getValueAt(row, 5);
+        cboRole.getModel().setSelectedItem(role);
     }
 
     public void tblDataKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblDataKeyReleased
@@ -552,7 +594,7 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
 //        }
     }//GEN-LAST:event_tblDataKeyReleased
 
-    public void tblDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDataMouseClicked
+    private void tblDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDataMouseClicked
         if (tblData.getSelectedRow() != -1) {
             getData(tblData.getSelectedRow());
         }
@@ -570,7 +612,7 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnAdd;
     public javax.swing.JButton btnDelete;
-    public javax.swing.ButtonGroup btnGroupAdmin;
+    private javax.swing.ButtonGroup btnGroupAdmin;
     public javax.swing.JButton btnSave;
     public javax.swing.JButton btnSearch;
     public javax.swing.JComboBox cboAddDepartment;
@@ -578,26 +620,28 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
     public javax.swing.JComboBox cboAddRole;
     public javax.swing.JComboBox cboDepartmentName;
     public javax.swing.JComboBox cboLocation;
-    public javax.swing.JLabel jLabel1;
-    public javax.swing.JLabel jLabel11;
-    public javax.swing.JLabel jLabel12;
-    public javax.swing.JLabel jLabel19;
-    public javax.swing.JLabel jLabel2;
-    public javax.swing.JLabel jLabel20;
-    public javax.swing.JLabel jLabel21;
-    public javax.swing.JLabel jLabel23;
-    public javax.swing.JLabel jLabel3;
-    public javax.swing.JLabel jLabel4;
-    public javax.swing.JLabel jLabel5;
-    public javax.swing.JLabel jLabel7;
-    public javax.swing.JLabel jLabel8;
-    public javax.swing.JPanel pnlAddEmp;
-    public javax.swing.JPanel pnlEditEmp;
-    public javax.swing.JPanel pnlSearchCondition;
-    public javax.swing.JScrollPane scrlpnlData;
-    public javax.swing.JPanel tabAddNew;
-    public javax.swing.JPanel tabViewEdit;
-    public javax.swing.JTabbedPane tabbedPane;
+    public javax.swing.JComboBox cboRole;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel pnlAddEmp;
+    private javax.swing.JPanel pnlEditEmp;
+    private javax.swing.JPanel pnlSearchCondition;
+    private javax.swing.JPanel tabAddNew;
+    private javax.swing.JPanel tabViewEdit;
+    private javax.swing.JTabbedPane tabbedPane;
     public javax.swing.JTable tblData;
     public javax.swing.JTextField tfAddFullname;
     public javax.swing.JPasswordField tfAddPassword1;

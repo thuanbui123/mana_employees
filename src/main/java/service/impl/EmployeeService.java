@@ -29,11 +29,11 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public EmployeeModel updateEmployee(EmployeeModel employeeModel, int id) {
-        if (employeeModel.getName() == null && employeeModel.getName().isEmpty() || employeeModel.getUsername() == null && employeeModel.getUsername().isEmpty() || employeeModel.getPassword() == null && employeeModel.getPassword().isEmpty()) {
+        if (employeeModel.getName() == null && employeeModel.getName().isEmpty()) {
             return null;
         }
         employeeDAO.updateEmployee(employeeModel, id);
-        return findOneEmployee(employeeModel.getId());
+        return findOneEmployee(id);
     }
 
     @Override
@@ -45,6 +45,11 @@ public class EmployeeService implements IEmployeeService {
         EmployeeModel saveEmployee = insertEmployee(employeeModel);
         if (saveEmployee == null) return false;
         return true;
+    }
+
+    @Override
+    public boolean isEmployeeOnProject(int id) {
+        return employeeDAO.isEmployeeOnProject(id);
     }
     
 }
