@@ -16,16 +16,16 @@ public class DepartmentDAO extends AbstractDAO<DepartmentModel> implements IDepa
     @Override
     public DepartmentModel findOneDepartment(int id) {
         String sql = "SELECT * FROM department WHERE id = ?";
-        if (query(sql, new DepartmentMapper(), id) != null) {
+        if (query(sql, new DepartmentMapper(), id) != null && !query(sql, new DepartmentMapper(), id).isEmpty()) {
             return query(sql, new DepartmentMapper(), id).get(0);
         }
         return null;
     }
 
     @Override
-    public void insertDepartment(DepartmentModel departmentModel) {
+    public long insertDepartment(DepartmentModel departmentModel) {
         String sql = "INSERT INTO department (name) VALUES (?)";
-        insert(sql, departmentModel.getName());
+        return insert(sql, departmentModel.getName());
     }
 
     @Override

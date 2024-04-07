@@ -16,4 +16,6 @@ public interface IEmployeeService {
     boolean isEmployeeOnProject (int id);
     
     void deleteEmployee(int id);
+    
+    void deleteEmployeeOnProject(int id);
 }

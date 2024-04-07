@@ -16,4 +16,6 @@ public interface IEmployeeDAO {
     void updateEmployee(EmployeeModel employeeModel, int id);
 
     void deleteEmployee(int id);
+    
+    void deleteEmployeeOnProject(int id);
 }

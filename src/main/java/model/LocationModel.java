@@ -10,6 +10,12 @@ public class LocationModel extends AbstractModel{
         this.name = name;
     }
 
+    public LocationModel(String name) {
+        this.name = name;
+    }
+    
+    
+
     public String getName() {
         return name;
     }

@@ -23,9 +23,9 @@ public class LocationDAO extends AbstractDAO<LocationModel> implements ILocation
     }
 
     @Override
-    public void insertLocationModel(LocationModel locationModel) {
+    public long insertLocationModel(LocationModel locationModel) {
         String sql = "INSERT INTO location (name) VALUES (?)";
-        insert(sql, locationModel.getName());
+        return insert(sql, locationModel.getName());
     }
 
     @Override

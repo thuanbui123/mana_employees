@@ -48,4 +48,10 @@ public class EmployeeDAO extends AbstractDAO<EmployeeModel> implements IEmployee
         if (query(sql, new EmployeeMapper(), id) != null && !query(sql, new EmployeeMapper(), id).isEmpty()) return true;
         return false;
     }
+
+    @Override
+    public void deleteEmployeeOnProject(int id) {
+        String sql = "Delete from employeesonproject where idEmployee = ?";
+        update(sql, id);
+    }
 }

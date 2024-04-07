@@ -12,7 +12,7 @@ public interface ILocationDAO {
 
     LocationModel findOneLocationModelByName(String name);
     
-    void insertLocationModel(LocationModel locationModel);
+    long insertLocationModel(LocationModel locationModel);
 
     void updateLocationModel(LocationModel locationModel, int id);
 

@@ -51,5 +51,10 @@ public class EmployeeService implements IEmployeeService {
     public boolean isEmployeeOnProject(int id) {
         return employeeDAO.isEmployeeOnProject(id);
     }
+
+    @Override
+    public void deleteEmployeeOnProject(int id) {
+        employeeDAO.deleteEmployeeOnProject(id);
+    }
     
 }

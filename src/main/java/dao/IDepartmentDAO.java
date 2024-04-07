@@ -12,7 +12,7 @@ public interface IDepartmentDAO {
 
     DepartmentModel findOneDepartmentByName(String name);
     
-    void insertDepartment(DepartmentModel departmentModel);
+    long insertDepartment(DepartmentModel departmentModel);
 
     void updateDepartment(DepartmentModel departmentModel, int id);
 

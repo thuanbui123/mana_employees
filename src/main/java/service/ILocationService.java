@@ -9,7 +9,7 @@ public interface ILocationService {
 
     LocationModel findOneLocationModel(int id);
 
-    LocationModel insertLocationModel(LocationModel locationModel);
+    long insertLocationModel(LocationModel locationModel);
 
     LocationModel updateLocationModel(LocationModel locationModel, int id);
 

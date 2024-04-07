@@ -24,8 +24,8 @@ public class DepartmentService implements IDepartmentService {
         if (departmentModel.getName() == null && departmentModel.getName().isEmpty()) {
             return null;
         }
-        departmentDAO.insertDepartment(departmentModel);
-        return departmentDAO.findOneDepartment(departmentModel.getId());
+        Long id = departmentDAO.insertDepartment(departmentModel);
+        return departmentDAO.findOneDepartment(Integer.valueOf(id.toString()));
     }
 
     @Override
@@ -38,7 +38,12 @@ public class DepartmentService implements IDepartmentService {
     }
 
     @Override
-    public void deleteDepartment(int id) {
+    public boolean deleteDepartment(int id) {
         departmentDAO.deleteDepartment(id);
+        DepartmentModel departmentModel = departmentDAO.findOneDepartment(id);
+        if(departmentModel != null) {
+            return false;
+        }
+        return true;
     }
 }

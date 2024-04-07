@@ -20,12 +20,12 @@ public class LocationService implements ILocationService {
     }
 
     @Override
-    public LocationModel insertLocationModel(LocationModel locationModel) {
+    public long insertLocationModel(LocationModel locationModel) {
         if (locationModel.getName() == null && locationModel.getName().isEmpty()) {
-            return null;
+            return 0;
         }
-        locationDAO.insertLocationModel(locationModel);
-        return locationDAO.findOneLocationModel(locationModel.getId());
+
+        return locationDAO.insertLocationModel(locationModel);
     }
 
     @Override

@@ -6,7 +6,9 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import utils.SetStyleComponentUtil;
 public class MainFrame extends javax.swing.JFrame {
+    
     public ActionListener action = new MainFrameController(this);
+
     public MainFrame() {
         initComponents();
 //        setFrameStyle();
