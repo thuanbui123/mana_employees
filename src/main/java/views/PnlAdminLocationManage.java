@@ -27,6 +27,7 @@ public final class PnlAdminLocationManage extends javax.swing.JPanel {
         btnSave.addActionListener(action);
         btnDelete.addActionListener(action);
         btnSearch.addActionListener(action);
+        btnExcel.addActionListener(action);
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 // Thiết lập căn chỉnh của renderer về bên trái
         renderer.setHorizontalAlignment(SwingConstants.LEFT);
@@ -58,6 +59,7 @@ public final class PnlAdminLocationManage extends javax.swing.JPanel {
         btnSearch = new javax.swing.JButton();
         btnThemLocation = new javax.swing.JButton();
         tfAddLocationName = new javax.swing.JTextField();
+        btnExcel = new javax.swing.JButton();
         pnlEdit = new javax.swing.JPanel();
         btnDelete = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
@@ -95,6 +97,8 @@ public final class PnlAdminLocationManage extends javax.swing.JPanel {
 
         tfAddLocationName.setMaximumSize(null);
 
+        btnExcel.setText("Xuất Excel");
+
         javax.swing.GroupLayout pnlAddLayout = new javax.swing.GroupLayout(pnlAdd);
         pnlAdd.setLayout(pnlAddLayout);
         pnlAddLayout.setHorizontalGroup(
@@ -108,6 +112,8 @@ public final class PnlAdminLocationManage extends javax.swing.JPanel {
                 .addComponent(btnThemLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(btnExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pnlAddLayout.setVerticalGroup(
@@ -118,7 +124,8 @@ public final class PnlAdminLocationManage extends javax.swing.JPanel {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThemLocation)
                     .addComponent(btnSearch)
-                    .addComponent(tfAddLocationName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfAddLocationName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExcel))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
 
@@ -273,6 +280,7 @@ public final class PnlAdminLocationManage extends javax.swing.JPanel {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnExcel;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnThemLocation;

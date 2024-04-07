@@ -7,9 +7,13 @@ package controllers;
 import model.DepartmentModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import service.impl.DepartmentService;
+import utils.ExportDataUtils;
 import utils.UpdateTable;
 import views.PnlAdminDepartmentManage;
 
@@ -18,8 +22,6 @@ import views.PnlAdminDepartmentManage;
  * @author Tan
  */
 public class DepartmentController implements ActionListener {
-    
-    
     
     private final DepartmentService departmentService = new DepartmentService();
     private final PnlAdminDepartmentManage pnlAdminDepartmentManage;
@@ -53,7 +55,7 @@ public class DepartmentController implements ActionListener {
                 JOptionPane.showMessageDialog(this.pnlAdminDepartmentManage, "Tên phòng ban không được để trống!");
                 return;
             }
-   
+            
             DepartmentModel departmentModel = new DepartmentModel(0, name);
             DepartmentModel isInsert = departmentService.insertDepartment(departmentModel);
             if (isInsert != null) {
@@ -68,12 +70,12 @@ public class DepartmentController implements ActionListener {
             this.pnlAdminDepartmentManage.tfDepartmentName.requestFocus();
             String name = this.pnlAdminDepartmentManage.tfDepartmentName.getText().trim();
             int id = Integer.parseInt(this.pnlAdminDepartmentManage.tfDepartmentID.getText());
-
+            
             if (name.equals("")) {
                 JOptionPane.showMessageDialog(this.pnlAdminDepartmentManage, "Tên phòng ban không được để trống!");
                 return;
             }
-
+            
             DepartmentModel departmentModel = new DepartmentModel(0, name);
             departmentService.updateDepartment(departmentModel, id);
             pnlAdminDepartmentManage.renderDataTable(sqlNomal);
@@ -96,10 +98,10 @@ public class DepartmentController implements ActionListener {
             } else {
                 JOptionPane.showMessageDialog(null, "Phòng ban đang có nhân viên", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             }
-
+            
         } else if (action.equals("Tìm kiếm")) {
             String keyword = this.pnlAdminDepartmentManage.tfDepartmentSearch.getText();
-            if(keyword != null && !keyword.isEmpty()) {
+            if (keyword != null && !keyword.isEmpty()) {
                 pnlAdminDepartmentManage.renderDataTable("SELECT \n"
                         + "    d.id AS department_id,\n"
                         + "    d.name AS department_name,\n"
@@ -111,7 +113,7 @@ public class DepartmentController implements ActionListener {
                         + "Where d.name like \"%" + keyword + "%\"\n"
                         + "GROUP BY \n"
                         + "    d.id, d.name;");
-
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng nhập tên phòng ban cần tìm kiếm", "Thông báo", JOptionPane.WARNING_MESSAGE);
                 this.pnlAdminDepartmentManage.tfDepartmentSearch.requestFocus();
@@ -119,6 +121,13 @@ public class DepartmentController implements ActionListener {
         } else if (action.equals("Hủy")) {
             pnlAdminDepartmentManage.renderDataTable(sqlNomal);
             pnlAdminDepartmentManage.getData(0);
+        } else if (action.equals("Xuất Excel")) {
+            ExportDataUtils exportDataUtils = new ExportDataUtils();
+            try {
+                exportDataUtils.exportTable(pnlAdminDepartmentManage.tblData);
+            } catch (IOException ex) {
+                Logger.getLogger(DepartmentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

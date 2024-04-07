@@ -13,6 +13,7 @@ import views.PnlAdminDepartmentManage;
 import views.PnlAdminEmployeeManage;
 import views.PnlAdminLocationManage;
 import views.PnlAdminProjectManage;
+import views.PnlStatistical;
 
 /**
  *
@@ -21,7 +22,7 @@ import views.PnlAdminProjectManage;
 public class MainFrameController implements ActionListener {
 
     private MainFrame mainFrame;
-    
+
     public MainFrameController(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
     }
@@ -58,7 +59,8 @@ public class MainFrameController implements ActionListener {
             SetStyleComponentUtil<PnlAdminLocationManage> setStyle = new SetStyleComponentUtil<>();
             setStyle.setFrameStyle(new PnlAdminLocationManage(), this.mainFrame.spltPane);
         } else if (action.equals("Thống kê")) {
-            JOptionPane.showMessageDialog(null, "Thống kê");
+            SetStyleComponentUtil<PnlStatistical> setStyle = new SetStyleComponentUtil<>();
+            setStyle.setFrameStyle(new PnlStatistical(), this.mainFrame.spltPane);
         }
     }
 

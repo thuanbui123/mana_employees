@@ -9,12 +9,16 @@ import dao.impl.LocationDAO;
 import dao.impl.RoleDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.DepartmentModel;
 import model.EmployeeModel;
 import model.LocationModel;
 import model.RoleModel;
 import service.impl.EmployeeService;
+import utils.ExportDataUtils;
 import utils.UpdateTable;
 import views.PnlAdminEmployeeManage;
 
@@ -101,7 +105,15 @@ public class AdminEmployeeController implements ActionListener {
                 UpdateTable.updateTableData(this.PnlAdminEmployeeManage.tblData, sql);
                 this.PnlAdminEmployeeManage.getData(0);
             }
+        } else if (action.equals("Xuất Excel")) {
+            ExportDataUtils exportDataUtils = new ExportDataUtils();
+            try {
+                exportDataUtils.exportTable(this.PnlAdminEmployeeManage.tblData);
+            } catch (IOException ex) {
+                Logger.getLogger(AdminEmployeeController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+
     }
 
 }

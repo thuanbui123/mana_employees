@@ -6,16 +6,20 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.LocationModel;
 import service.impl.LocationService;
+import utils.ExportDataUtils;
 import utils.UpdateTable;
 import views.PnlAdminLocationManage;
 
 public class LocationController implements ActionListener {
 
-    private static LocationService locationService = new LocationService();
-    private PnlAdminLocationManage pnlAdminLocationManage;
+    private final LocationService locationService = new LocationService();
+    private final PnlAdminLocationManage pnlAdminLocationManage;
 
     public LocationController(PnlAdminLocationManage pnlAdminLocationManage) {
         this.pnlAdminLocationManage = pnlAdminLocationManage;
@@ -65,10 +69,17 @@ public class LocationController implements ActionListener {
             int confirm = JOptionPane.showConfirmDialog(this.pnlAdminLocationManage, "Bạn chắc chắn muốn xóa?", "Xác nhận", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
                 int id = Integer.parseInt(this.pnlAdminLocationManage.tfEditLocationId.getText());
-              locationService.deleteLocationModel(id);
+                locationService.deleteLocationModel(id);
                 JOptionPane.showMessageDialog(this.pnlAdminLocationManage, "Xóa thành công");
                 this.pnlAdminLocationManage.renderDataTable();
                 this.pnlAdminLocationManage.getData(0);
+            }
+        } else if (action.equals("Xuất Excel")) {
+            ExportDataUtils exportDataUtils = new ExportDataUtils();
+            try {
+                exportDataUtils.exportTable(this.pnlAdminLocationManage.tblData);
+            } catch (IOException ex) {
+                Logger.getLogger(AdminEmployeeController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

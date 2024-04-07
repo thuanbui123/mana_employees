@@ -9,7 +9,7 @@ public class ConfigDB {
         Connection conn;
         Class.forName("com.mysql.cj.jdbc.Driver");
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/java_advance?autoReconnect=true&useSSL=false", "root", "Thuan0101#");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/java_advance?autoReconnect=true&useSSL=false", "root", "password");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

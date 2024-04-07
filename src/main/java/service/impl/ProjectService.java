@@ -7,6 +7,7 @@ import service.IProjectService;
 import java.util.List;
 
 public class ProjectService implements IProjectService {
+
     private final ProjectDAO projectDAO = new ProjectDAO();
 
     @Override
@@ -24,8 +25,7 @@ public class ProjectService implements IProjectService {
         if (projectModel.getName() == null && projectModel.getName().isEmpty() || projectModel.getList() == null) {
             return null;
         }
-        projectDAO.insertProjectModel(projectModel);
-        return findOneProjectModel(projectModel.getId());
+        return findOneProjectModel((int) projectDAO.insertProjectModel(projectModel));
     }
 
     @Override
@@ -33,12 +33,27 @@ public class ProjectService implements IProjectService {
         if (projectModel.getName() == null && projectModel.getName().isEmpty() || projectModel.getList() == null) {
             return null;
         }
+        projectDAO.deleteMemberToProject(id);
+        projectDAO.insertMemberInToProject(id, projectModel.getList());
         projectDAO.updateProjectModel(projectModel, id);
         return findOneProjectModel(id);
     }
 
     @Override
-    public void deleteProjectModel(int id) {
+    public ProjectModel deleteProjectModel(int id) {
+        projectDAO.deleteMemberToProject(id);
         projectDAO.deleteProjectModel(id);
+        return findOneProjectModel(id);
+    }
+
+    @Override
+    public List<ProjectModel> searchProject(String query) {
+        return projectDAO.searchProject(query);
+    }
+
+    @Override
+    public ProjectModel updateDoneProject(int id, int status) {
+        projectDAO.updateDoneProject(id, status);
+        return findOneProjectModel(id);
     }
 }

@@ -29,7 +29,7 @@ public class ProjectMapper implements IRowMapper<ProjectModel> {
 
             projectModel.setId(projectId);
             projectModel.setName(resultSet.getString(16));
-            projectModel.setStatus(resultSet.getBoolean(17));
+            projectModel.setStatus(resultSet.getInt(17));
             projectModel.setCreatedAt(resultSet.getTimestamp(18));
             projectModel.setUpdatedAt(resultSet.getTimestamp(19));
 

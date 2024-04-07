@@ -30,6 +30,7 @@ public final class PnlAdminDepartmentManage extends javax.swing.JPanel {
         btnClear.addActionListener(action);
         btnSearch.addActionListener(action);
         btnDelete.addActionListener(action);
+        btnExcel.addActionListener(action);
     }
 
     @SuppressWarnings("unchecked")
@@ -49,6 +50,7 @@ public final class PnlAdminDepartmentManage extends javax.swing.JPanel {
         btnSearch = new javax.swing.JButton();
         tfDepartmentSearch = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        btnExcel = new javax.swing.JButton();
         pnlBottom = new javax.swing.JPanel();
         spnlDepartmentData = new javax.swing.JScrollPane();
         tblData = new javax.swing.JTable();
@@ -92,6 +94,8 @@ public final class PnlAdminDepartmentManage extends javax.swing.JPanel {
 
         jLabel7.setText("Tìm kiếm");
 
+        btnExcel.setText("Xuất Excel");
+
         javax.swing.GroupLayout pnlDepartmentLayout = new javax.swing.GroupLayout(pnlDepartment);
         pnlDepartment.setLayout(pnlDepartmentLayout);
         pnlDepartmentLayout.setHorizontalGroup(
@@ -102,27 +106,30 @@ public final class PnlAdminDepartmentManage extends javax.swing.JPanel {
                     .addGroup(pnlDepartmentLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfDepartmentID, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfDepartmentID, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5))
+                    .addGroup(pnlDepartmentLayout.createSequentialGroup()
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(pnlDepartmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlDepartmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlDepartmentLayout.createSequentialGroup()
-                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
                         .addComponent(btnDelete)
-                        .addGap(75, 75, 75)
+                        .addGap(18, 18, 18)
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlDepartmentLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(4, 4, 4)
                         .addComponent(tfDepartmentName, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfDepartmentSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         pnlDepartmentLayout.setVerticalGroup(
             pnlDepartmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,7 +148,8 @@ public final class PnlAdminDepartmentManage extends javax.swing.JPanel {
                     .addComponent(btnDelete)
                     .addComponent(btnUpdate)
                     .addComponent(btnClear)
-                    .addComponent(btnSearch))
+                    .addComponent(btnSearch)
+                    .addComponent(btnExcel))
                 .addGap(22, 22, 22))
         );
 
@@ -222,6 +230,7 @@ public final class PnlAdminDepartmentManage extends javax.swing.JPanel {
     public javax.swing.JButton btnAdd;
     public javax.swing.JButton btnClear;
     public javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnExcel;
     public javax.swing.JButton btnSearch;
     public javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel5;

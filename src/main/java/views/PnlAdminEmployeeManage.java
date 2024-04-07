@@ -233,6 +233,7 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
         btnDelete.addActionListener(action);
         btnSave.addActionListener(action);
         btnSearch.addActionListener(action);
+        btnExcel.addActionListener(action);
     }
 
     /**
@@ -266,6 +267,7 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
         btnSearch = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
         tfSearchFullname = new javax.swing.JTextField();
+        btnExcel = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblData = new javax.swing.JTable();
         tabAddNew = new javax.swing.JPanel();
@@ -407,6 +409,8 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
 
         jLabel19.setText("Tên");
 
+        btnExcel.setText("Xuất Excel");
+
         javax.swing.GroupLayout pnlSearchConditionLayout = new javax.swing.GroupLayout(pnlSearchCondition);
         pnlSearchCondition.setLayout(pnlSearchConditionLayout);
         pnlSearchConditionLayout.setHorizontalGroup(
@@ -416,9 +420,11 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfSearchFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(275, 275, 275)
+                .addGap(143, 143, 143)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(btnExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         pnlSearchConditionLayout.setVerticalGroup(
             pnlSearchConditionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -427,7 +433,8 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
                 .addGroup(pnlSearchConditionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch)
                     .addComponent(jLabel19)
-                    .addComponent(tfSearchFullname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfSearchFullname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExcel))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
 
@@ -612,6 +619,7 @@ public class PnlAdminEmployeeManage extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnAdd;
     public javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnExcel;
     private javax.swing.ButtonGroup btnGroupAdmin;
     public javax.swing.JButton btnSave;
     public javax.swing.JButton btnSearch;
