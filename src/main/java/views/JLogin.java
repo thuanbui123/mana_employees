@@ -9,9 +9,11 @@
  */
 package views;
 
+import controllers.LoginController;
 import javax.swing.JOptionPane;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 
@@ -21,8 +23,10 @@ public class JLogin extends javax.swing.JFrame {
     /** Tạo LoginFrame */
 
     public JLogin() {
-   
+        ActionListener action = new LoginController(this);
         initComponents();
+        btnLogin.addActionListener(action);
+        btnClose.addActionListener(action);
         centerWindow();
     }
 
@@ -37,7 +41,7 @@ public class JLogin extends javax.swing.JFrame {
 
         pnlLogin = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        tfUserID = new javax.swing.JTextField();
+        tfUsername = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         btnClose = new javax.swing.JButton();
         btnLogin = new javax.swing.JButton();
@@ -51,35 +55,13 @@ public class JLogin extends javax.swing.JFrame {
 
         jLabel2.setText("Tên đăng nhập");
 
-        tfUserID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfUserIDActionPerformed(evt);
-            }
-        });
-
         jLabel3.setText("Mật khẩu");
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout.png"))); // NOI18N
         btnClose.setText("Thoát");
-        btnClose.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCloseActionPerformed(evt);
-            }
-        });
 
         btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/key.png"))); // NOI18N
         btnLogin.setText("Đăng nhập");
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
-            }
-        });
-
-        tfPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfPasswordActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout pnlLoginLayout = new javax.swing.GroupLayout(pnlLogin);
         pnlLogin.setLayout(pnlLoginLayout);
@@ -95,7 +77,7 @@ public class JLogin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(tfPassword, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfUserID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(tfUsername, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnlLoginLayout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -109,7 +91,7 @@ public class JLogin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlLoginLayout.createSequentialGroup()
-                        .addComponent(tfUserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -126,88 +108,6 @@ public class JLogin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
-        if (JOptionPane.showConfirmDialog(this, "Bạn muốn đóng ứng dụng này ?", "Xác nhận đóng", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.OK_OPTION) {
-            System.exit(1);
-        }
-    }//GEN-LAST:event_btnCloseActionPerformed
-
-//    private void login() {
-//        if (validateLogin())//Xác nhận đăng nhập: Tên không trống
-//        {
-//            try {
-//                String rawPass = new String(tfPassword.getPassword());
-//              
-//
-//                Employee emp = EmployeeDAO.isValidUser(tfUserID.getText().trim(), rawPass);
-//
-//                if (emp != null) {//Nếu một nhân viên tìm thấy
-//                    MainFrame frmMain = new MainFrame(emp);//Xem có phải admin?
-//                   
-//                    frmMain.setVisible(true);
-//                    tfPassword.setText("");
-//                    tfUserID.setText("");
-//                    this.setVisible(false);
-//                } else {//Nếu không tìm thấy nhân viên
-//                    JOptionPane.showMessageDialog(null,
-//                            "Tên đăng nhâp hoặc Pass không đúng",
-//                            "Đăng nhập Lỗi",
-//                            JOptionPane.ERROR_MESSAGE);
-//                }
-//
-//            } catch (ClassNotFoundException ex) {
-//                JOptionPane.showMessageDialog(null,
-//                        "Có một số lõi không thể kết nối dữ liệu",
-//                        "Đăng nhập lỗi",
-//                        JOptionPane.ERROR_MESSAGE);
-//                Logger.getLogger(JLogin.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (SQLException ex) {
-//                JOptionPane.showMessageDialog(null,
-//                        "Có một số lõi không thể kết nối dữ liệu",
-//                        "Đăng nhập lỗi",
-//                        JOptionPane.ERROR_MESSAGE);
-//                Logger.getLogger(JLogin.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//        }
-//    }
-
-//    private boolean validateLogin() {
-//        StringBuilder msg = new StringBuilder();
-//        /*Kiểm tra User trống không*/
-//        if (!ValidateFormTools.isFilledTextField(tfUserID, true)) {
-//            msg.append("\n- Phải đùng Tên đăng nhập của bạn");
-//        }
-//
-//        /*KT Pass*/
-//        if ((new String(tfPassword.getPassword())).compareTo("") == 0) {
-//            msg.append("\n - Mật khẩu không thể để trống");
-//        }
-//
-//  
-//        if (msg.toString().compareTo("") == 0) {
-//            return true;
-//        } else {
-//            JOptionPane.showMessageDialog(null,
-//                    "Có một số lỗi" + msg.toString(),
-//                    "Đăng nhập lỗi",
-//                    JOptionPane.ERROR_MESSAGE);
-//            return false;
-//        }
-//    }
-
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-//        login();
-    }//GEN-LAST:event_btnLoginActionPerformed
-
-    private void tfUserIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUserIDActionPerformed
-//        login();
-    }//GEN-LAST:event_tfUserIDActionPerformed
-
-    private void tfPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPasswordActionPerformed
-//        login();
-    }//GEN-LAST:event_tfPasswordActionPerformed
 
     private void centerWindow() {
         // kich thuoc frame
@@ -236,10 +136,10 @@ public class JLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnClose;
     public javax.swing.JButton btnLogin;
-    public javax.swing.JLabel jLabel2;
-    public javax.swing.JLabel jLabel3;
-    public javax.swing.JPanel pnlLogin;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel pnlLogin;
     public javax.swing.JPasswordField tfPassword;
-    public javax.swing.JTextField tfUserID;
+    public javax.swing.JTextField tfUsername;
     // End of variables declaration//GEN-END:variables
 }

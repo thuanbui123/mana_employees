@@ -16,7 +16,9 @@ public class EmployeeDAO extends AbstractDAO<EmployeeModel> implements IEmployee
     @Override
     public EmployeeModel findOneEmployee(int id) {
         String sql = "SELECT * FROM employee, department, location, role WHERE employee.departmentId = department.id AND employee.locationId = location.id AND employee.roleId = role.id AND employee.id = ?";
-        return query(sql, new EmployeeMapper(), id).get(0);
+        if (query(sql, new EmployeeMapper(), id) != null && !query(sql, new EmployeeMapper(), id).isEmpty())
+            return query(sql, new EmployeeMapper(), id).get(0);
+        return null;
     }
 
     @Override

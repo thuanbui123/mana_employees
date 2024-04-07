@@ -109,7 +109,6 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 
             statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             setParameter(statement, parameters);
-            System.out.println(statement);
             statement.executeUpdate(); // INSERT UPDATE, DELETE
             resultSet = statement.getGeneratedKeys(); //4
             if (resultSet.next()) {

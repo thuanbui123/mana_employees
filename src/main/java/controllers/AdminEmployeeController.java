@@ -79,7 +79,9 @@ public class AdminEmployeeController implements ActionListener {
             }
         } else if (action.equals("Tìm kiếm")) {
             String name = this.PnlAdminEmployeeManage.tfSearchFullname.getText();
-            String sql = "Select employee.id, employee.name, employee.username, location.name, department.name, role.name from employee, location, role, department where employee.roleId = role.id and employee.departmentId = department.id and employee.locationID = location.id and employee.name = N'" + name + "'";
+            String sql = "Select employee.id, employee.name, employee.username, location.name, department.name \n"
+                    + "from employee, location, department \n"
+                    + "where employee.departmentId = department.id and employee.locationID = location.id and employee.name LIKE \"%" + name + "%\"";
             UpdateTable.updateTableData(this.PnlAdminEmployeeManage.tblData, sql);
         } else if (action.equals("Xóa")) {
             Integer id = Integer.valueOf(this.PnlAdminEmployeeManage.tfEditEmployeeID.getText());
@@ -89,7 +91,12 @@ public class AdminEmployeeController implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Nhân viên vẫn đang tham gia dự án");
                 } else {
                     employeeService.deleteEmployee(id);
-                    JOptionPane.showMessageDialog(null, "Xóa thành công");
+                    EmployeeModel employeeModel = employeeService.findOneEmployee(id);
+                    if (employeeModel != null) {
+                        JOptionPane.showMessageDialog(null, "Xóa thành công");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Xóa không thành công");
+                    }
                     String sql = "Select employee.id, employee.name, employee.username, location.name, department.name, role.name from employee, location, role, department where employee.roleId = role.id and employee.departmentId = department.id and employee.locationID = location.id ORDER BY employee.id ASC";
                     UpdateTable.updateTableData(this.PnlAdminEmployeeManage.tblData, sql);
                 }
